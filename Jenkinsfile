@@ -43,14 +43,23 @@ pipeline {
 
         stage('Promote to MAIN') {
             steps {
-                sh '''
-                git config user.email "jenkins@example.com"
-                git config user.name "Jenkins"
-                git checkout main
-                git pull origin main
-                git merge dev
-                git push origin main
-                '''
+                withCredentials([usernamePassword(
+                    credentialsId: 'github-creds',
+                    usernameVariable: 'GIT_USER',
+                    passwordVariable: 'GIT_PASS'
+                )]) {
+                    sh '''
+                    git config user.email "jenkins@example.com"
+                    git config user.name "Jenkins"
+
+                    git remote set-url origin https://$GIT_USER:$GIT_PASS@github.com/notTheFinal/labajenkins.git
+
+                    git checkout main
+                    git pull origin main
+                    git merge dev
+                    git push origin main
+                    '''
+                }
             }
         }
 
