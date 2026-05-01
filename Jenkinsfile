@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh '''
                 echo "DEV build"
-                docker build -t labapp:dev .
+                docker build --no-cache  -t labapp:dev .
                 '''
             }
         }
