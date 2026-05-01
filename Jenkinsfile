@@ -21,8 +21,8 @@ pipeline {
         stage('Deploy STAGING') {
             steps {
                 sh '''
-                docker stop labapp || true
-                docker rm labapp || true
+                docker stop labapp_st || true
+                docker rm labapp_st || true
                 docker run -d -p 8080:80 --name labapp_st -e ENV=STAGING labapp:dev
                 '''
             }
