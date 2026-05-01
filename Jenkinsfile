@@ -23,7 +23,7 @@ pipeline {
                 sh '''
                 docker stop labapp || true
                 docker rm labapp || true
-                docker run -d -p 8080:80 --name labapp -e ENV=STAGING labapp:dev
+                docker run -d -p 8080:80 --name labapp_st -e ENV=STAGING labapp:dev
                 '''
             }
         }
@@ -61,7 +61,7 @@ pipeline {
                 sh '''
                 docker stop labapp || true
                 docker rm labapp || true
-                docker run -d -p 8081:80 --name labapp -e ENV=PROD labapp:main
+                docker run -d -p 8081:80 --name labapp_mn -e ENV=PROD labapp:main
                 '''
             }
         }
@@ -72,8 +72,8 @@ pipeline {
             echo "FAIL → rollback staging"
 
             sh '''
-            docker stop labapp || true
-            docker rm labapp || true
+            docker stop labapp_st || true
+            docker rm labapp_st || true
             '''
         }
     }
