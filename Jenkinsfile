@@ -32,7 +32,7 @@ pipeline {
             steps {
                 sh '''
                 sleep 2
-                curl -f http://localhost:8080 | grep "Hello"
+                curl -f http://localhost:8080 | grep "STAGING"
                 '''
             }
         }
