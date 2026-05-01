@@ -32,7 +32,11 @@ pipeline {
             steps {
                 sh '''
                 sleep 2
-                curl -f http://localhost:8080 | grep "STAGING"
+                response=$(curl -s http://localhost:8080)
+
+                echo "$response"
+
+                echo "$response" | grep -qi STAGING
                 '''
             }
         }
@@ -42,7 +46,7 @@ pipeline {
                 sh '''
                 git checkout main
                 git pull origin main
-                git merge dev || true
+                git merge dev
                 git push origin main
                 '''
             }
@@ -62,7 +66,7 @@ pipeline {
                 sh '''
                 docker stop labapp || true
                 docker rm labapp || true
-                docker run -d -p 8080:80 --name labapp -e ENV=MAIN labapp:main
+                docker run -d -p 8081:80 --name labapp -e ENV=PROD labapp:main
                 '''
             }
         }
