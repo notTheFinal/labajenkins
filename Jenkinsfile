@@ -59,8 +59,8 @@ pipeline {
         stage('Deploy MAIN') {
             steps {
                 sh '''
-                docker stop labapp || true
-                docker rm labapp || true
+                docker stop labapp_mn || true
+                docker rm labapp_mn || true
                 docker run -d -p 8081:80 --name labapp_mn -e ENV=PROD labapp:main
                 '''
             }
