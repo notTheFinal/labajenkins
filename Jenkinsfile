@@ -44,6 +44,8 @@ pipeline {
         stage('Promote to MAIN') {
             steps {
                 sh '''
+                git config user.email "jenkins@example.com"
+                git config user.name "Jenkins"
                 git checkout main
                 git pull origin main
                 git merge dev
