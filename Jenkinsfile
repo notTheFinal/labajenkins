@@ -23,7 +23,7 @@ pipeline {
                 sh '''
                 docker stop labapp || true
                 docker rm labapp || true
-                docker run -d -p 8080:80 --name labapp labapp:dev
+                docker run -d -p 8080:80 --name labapp -e ENV=STAGING labapp:dev
                 '''
             }
         }
@@ -62,7 +62,7 @@ pipeline {
                 sh '''
                 docker stop labapp || true
                 docker rm labapp || true
-                docker run -d -p 8080:80 --name labapp labapp:main
+                docker run -d -p 8080:80 --name labapp -e ENV=MAIN labapp:main
                 '''
             }
         }
