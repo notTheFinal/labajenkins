@@ -55,7 +55,7 @@ pipeline {
                     git remote set-url origin https://$GIT_USER:$GIT_PASS@github.com/notTheFinal/labajenkins.git
 
                     git checkout main
-                    git pull origin main
+                    git pull origin main --rebase
                     git merge dev
                     git push origin main
                     '''
